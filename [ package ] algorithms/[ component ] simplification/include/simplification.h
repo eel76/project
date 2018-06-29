@@ -3,4 +3,5 @@
 
 class Report;
 
-void SIMPLIFICATION_EXPORT simplificationAlgorithm(Report& report)
+void SIMPLIFICATION_EXPORT simplificationAlgorithm(Report& report);
+

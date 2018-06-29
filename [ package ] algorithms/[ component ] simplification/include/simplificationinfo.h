@@ -5,3 +5,4 @@ struct SIMPLIFICATION_EXPORT SimplificationInfo
 {
   int currentNumberOfTriangles;
 };
+
