@@ -1,5 +1,6 @@
 #pragma once
 #include "core_export.h"
+
 #include <functional>
 
 class [[nodiscard]] CORE_EXPORT Subscription

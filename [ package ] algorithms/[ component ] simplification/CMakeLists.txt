@@ -6,8 +6,8 @@ include (GenerateExportHeader)
 add_library (simplification SHARED)
 generate_export_header(simplification)
 
-target_sources (simplification PRIVATE src/simplification.cpp PUBLIC include/simplification.h)
-target_sources (simplification PRIVATE src/simplificationinfo.cpp PUBLIC include/simplificationinfo.h)
+target_sources (simplification PRIVATE src/simplification.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/simplification.h)
+target_sources (simplification PRIVATE src/simplificationinfo.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/simplificationinfo.h)
 
 target_include_directories(simplification
     PUBLIC 
