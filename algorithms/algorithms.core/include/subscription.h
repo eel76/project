@@ -1,9 +1,9 @@
 #pragma once
-#include "core_export.h"
+#include "algorithms_core_export.h"
 
 #include <functional>
 
-class [[nodiscard]] CORE_EXPORT Subscription
+class [[nodiscard]] ALGORITHMS_CORE_EXPORT Subscription
 {
 public:
     template <class Cancellation>

@@ -1,12 +1,12 @@
 #pragma once
-#include "core_export.h"
+#include "algorithms_core_export.h"
 #include "subscription.h"
 
 #include <any>
 #include <functional>
 #include <map>
 
-class CORE_EXPORT Report
+class ALGORITHMS_CORE_EXPORT Report
 {
 public:
   template <class Recipient>

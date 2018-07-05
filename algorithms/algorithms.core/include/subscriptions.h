@@ -1,10 +1,10 @@
 #pragma once
-#include "core_export.h"
+#include "algorithms_core_export.h"
 #include "subscription.h"
 
 #include <vector>
 
-class CORE_EXPORT Subscriptions
+class ALGORITHMS_CORE_EXPORT Subscriptions
 {
 public:
     Subscriptions ();
