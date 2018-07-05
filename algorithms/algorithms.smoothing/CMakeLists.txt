@@ -20,4 +20,4 @@ target_include_directories(algorithms.smoothing
 
 target_compile_features(algorithms.smoothing PUBLIC cxx_std_17)
 
-target_link_libraries(algorithms.smoothing PRIVATE core)
+target_link_libraries(algorithms.smoothing PRIVATE algorithms.core)

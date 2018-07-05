@@ -20,4 +20,4 @@ target_include_directories(algorithms.simplification
 
 target_compile_features(algorithms.simplification PUBLIC cxx_std_17)
 
-target_link_libraries(algorithms.simplification PRIVATE core)
+target_link_libraries(algorithms.simplification PRIVATE algorithms.core)
