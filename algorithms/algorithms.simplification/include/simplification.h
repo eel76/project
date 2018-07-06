@@ -1,7 +1,7 @@
 #pragma once
-#include "simplification_export.h"
+#include "algorithms_simplification_export.h"
 
 class Report;
 
-void SIMPLIFICATION_EXPORT simplificationAlgorithm(Report& report);
+ALGORITHMS_SIMPLIFICATION_EXPORT void simplificationAlgorithm(Report& report);
 

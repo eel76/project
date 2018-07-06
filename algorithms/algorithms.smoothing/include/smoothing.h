@@ -1,7 +1,7 @@
 #pragma once
-#include "smoothing_export.h"
+#include "algorithms_smoothing_export.h"
 
 class Report;
 
-void SMOOTHING_EXPORT smoothingAlgorithm(Report& report);
+ALGORITHMS_SMOOTHING_EXPORT void smoothingAlgorithm(Report& report);
 
