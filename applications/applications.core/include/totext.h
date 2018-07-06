@@ -9,7 +9,7 @@
 #include <map>
 #include <typeindex>
 
-class APPLICATIONS_CORE_EXPORT ToTextService
+class APPLICATIONS_CORE_EXPORT ToText
 {
 public:
     template <class Type, class Provider>
