@@ -16,6 +16,6 @@
 
     std::function<void()> Subscription::release ()
     {
-        auto cancellation {std::move (mCancellation)};
+        auto const cancellation {std::move (mCancellation)};
         return cancellation;
     }

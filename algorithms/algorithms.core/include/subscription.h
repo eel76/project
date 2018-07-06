@@ -11,6 +11,7 @@ public:
         : mCancellation (std::forward<Cancellation> (cancellation))
     {
     }
+    explicit Subscription(std::nullptr_t) = delete;
 
     ~Subscription ();
 
