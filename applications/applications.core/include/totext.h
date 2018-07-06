@@ -2,11 +2,12 @@
 #include "applications_core_export.h"
 
 #include "subscription.h"
-#include "unicodestring.h"
 
 #include <any>
 #include <functional>
 #include <map>
+#include <optional>
+#include <string>
 #include <typeindex>
 
 class APPLICATIONS_CORE_EXPORT ToText
@@ -26,15 +27,15 @@ public:
         return Subscription{[&,subscription] { mProviders.erase (subscription); }};
     }
 
-    UnicodeString operator() (std::any const& object) const
+    std::optional<std::string> operator() (std::any const& object) const
     {
         auto const provider = mProviders.find (object.type ());
         if (provider == end (mProviders))
-            return UnicodeString{ nullptr };
+            return std::nullopt;
 
-        return provider->second (object);
+        return std::make_optional (provider->second (object));
     }
 
 private:
-    std::map<std::type_index, std::function<UnicodeString(std::any const&)>> mProviders;
+    std::map<std::type_index, std::function<std::string(std::any const&)>> mProviders;
 };

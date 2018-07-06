@@ -1,7 +1,7 @@
 #pragma once
 #include "applications_core_export.h"
 
-#include "unicodestring.h"
+#include <string>
 
 #define TRANSLATION_CONTEXT(_identifier_)                 \
 namespace                                                 \
@@ -9,9 +9,9 @@ namespace                                                 \
   class _identifier_                                      \
   {                                                       \
   public:                                                 \
-    static UnicodeString tr (char const* text, char const* = nullptr) \
+    static std::string tr (char const* text, char const* = nullptr) \
     {                                                     \
-      return UnicodeString::fromUtf8 (text);              \
+      return std::string {text};                          \
     }                                                     \
   };                                                      \
 }

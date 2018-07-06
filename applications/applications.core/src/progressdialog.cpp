@@ -9,6 +9,6 @@ ProgressDialog::ProgressDialog(Report& report, ToText& toText)
 {
   mSubscriptions += report.subscribe([&](std::any const& news)
   {
-    std::cout << "news: " << toText(news) << "\n";
+    std::cout << "news: " << toText (news).value_or("<unknown>") << "\n";
   });
 }

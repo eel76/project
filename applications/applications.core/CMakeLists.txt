@@ -9,7 +9,6 @@ generate_export_header(applications.core BASE_NAME applications_core)
 target_sources (applications.core PRIVATE src/progressdialog.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/progressdialog.h)
 target_sources (applications.core PRIVATE src/totext.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/totext.h)
 target_sources (applications.core PRIVATE src/translation_context.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/translation_context.h)
-target_sources (applications.core PRIVATE src/unicodestring.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/unicodestring.h)
 
 target_include_directories(applications.core
     PUBLIC 
