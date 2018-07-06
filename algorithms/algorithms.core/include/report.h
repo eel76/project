@@ -9,10 +9,10 @@
 class ALGORITHMS_CORE_EXPORT Report
 {
 public:
-  template <class Recipient>
-  Subscription subscribe(Recipient&& recipient)
+  template <class NewsHandler>
+  Subscription subscribe(NewsHandler&& newsHandler)
   {
-    mRecipients.emplace(mLastID, std::forward<Recipient>(recipient));
+    mRecipients.emplace(mLastID, std::forward<NewsHandler>(newsHandler));
     return Subscription{ [&,id{ mLastID++ }]{ mRecipients.erase(id); } };
   }
 
@@ -26,6 +26,9 @@ public:
   }
 
 private:
-  std::map<int, std::function<void(std::any const&)>> mRecipients;
-  int                                                 mLastID{ 0 };
+  using ID = int;
+  using Recipient = std::function<void(std::any const&)>;
+
+  std::map<ID, Recipient> mRecipients;
+  ID                      mLastID{ 0 };
 };
