@@ -18,6 +18,6 @@ target_include_directories(algorithms.simplification
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
 
+target_compile_options(algorithms.simplification PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-wd4251>)
 target_compile_features(algorithms.simplification PUBLIC cxx_std_17)
-
 target_link_libraries(algorithms.simplification PRIVATE algorithms.core)

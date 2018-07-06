@@ -18,6 +18,6 @@ target_include_directories(algorithms.smoothing
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
 
+target_compile_options(algorithms.smoothing PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-wd4251>)
 target_compile_features(algorithms.smoothing PUBLIC cxx_std_17)
-
 target_link_libraries(algorithms.smoothing PRIVATE algorithms.core)

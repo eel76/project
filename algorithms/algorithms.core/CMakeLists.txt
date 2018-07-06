@@ -19,5 +19,5 @@ target_include_directories(algorithms.core
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
 
+target_compile_options(algorithms.core PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-wd4251>)
 target_compile_features(algorithms.core PUBLIC cxx_std_17)
-
