@@ -16,13 +16,13 @@ public:
     return Subscription{ [&,id{ mLastID++ }]{ mRecipients.erase(id); } };
   }
 
-  template <class Info>
-  void operator() (Info&& info) const
+  template <class News>
+  void operator() (News&& news) const
   {
-    auto const anyInfo = std::any{ std::forward<Info>(info) };
+    auto const anyNews = std::any{ std::forward<News>(news) };
 
     for (auto&& handler : mRecipients)
-      std::invoke(handler.second, anyInfo);
+      std::invoke(handler.second, anyNews);
   }
 
 private:
