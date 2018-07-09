@@ -1,8 +1,8 @@
 #include "smoothing.h"
 #include "smoothinginfo.h"
-#include "report.h"
+#include "callback.h"
 
-void smoothingAlgorithm(Report& report)
+void smoothingAlgorithm(Callback& report)
 {
   report(SmoothingInfo{});
 }

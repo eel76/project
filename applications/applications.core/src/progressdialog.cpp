@@ -1,14 +1,14 @@
 #include "progressdialog.h"
 
-#include "report.h"
+#include "callback.h"
 #include "totext.h"
 
 #include <iostream>
 
-ProgressDialog::ProgressDialog(Report& report, ToText& toText)
+ProgressDialog::ProgressDialog(Callback& report, ToText& toText)
 {
   mSubscriptions += report.subscribe([&](std::any const& news)
   {
-    std::cout << "news: " << toText (news).value_or("<unknown>") << "\n";
+    std::cout << "news: " << toText (news).value_or("<unknown news>") << "\n";
   });
 }

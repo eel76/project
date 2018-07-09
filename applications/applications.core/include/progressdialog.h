@@ -3,13 +3,13 @@
 
 #include "subscriptions.h"
 
-class Report;
+class Callback;
 class ToText;
 
 class APPLICATIONS_CORE_EXPORT ProgressDialog
 {
 public:
-  ProgressDialog(Report& report, ToText& toText);
+  ProgressDialog(Callback& report, ToText& toText);
 
 private:
   Subscriptions mSubscriptions;

@@ -1,8 +1,8 @@
 #include "simplification.h"
 #include "simplificationinfo.h"
-#include "report.h"
+#include "callback.h"
 
-void simplificationAlgorithm(Report& report)
+void simplificationAlgorithm(Callback& report)
 {
   int currentNumberOfTriangles{ 100 };
   while (currentNumberOfTriangles--> 0)

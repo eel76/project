@@ -6,7 +6,7 @@ include (GenerateExportHeader)
 add_library (algorithms.core SHARED)
 generate_export_header(algorithms.core BASE_NAME algorithms_core)
 
-target_sources (algorithms.core PRIVATE src/report.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/report.h)
+target_sources (algorithms.core PRIVATE src/callback.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/callback.h)
 target_sources (algorithms.core PRIVATE src/subscription.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/subscription.h)
 target_sources (algorithms.core PRIVATE src/subscriptions.cpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/subscriptions.h)
 

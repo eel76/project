@@ -6,7 +6,7 @@
 #include <functional>
 #include <map>
 
-class ALGORITHMS_CORE_EXPORT Report
+class ALGORITHMS_CORE_EXPORT Callback
 {
 public:
   template <class NewsHandler>
