@@ -1,49 +1,8 @@
-#include <functional>
+#include "store.h"
 #include <iostream>
 #include <queue>
 #include <stack>
 #include <variant>
-
-#include "eventloop.h"
-
-template <class Model>
-class Store
-{
-public:
-  template <class Model, class View>
-  Store (Model&& initial, View&& view)
-    : mModel (std::forward<Model> (initial))
-    , mView (std::forward<View> (view))
-    , mEventLoop ()
-  {
-  }
-
-  void update ()
-  {
-    mEventLoop.post ([=] {
-      mView (mModel);
-    });
-  }
-
-  template <class Action>
-  void dispatch (Action&& action)
-  {
-    mEventLoop.post ([=, applyAction{std::forward<Action> (action)}]
-    {
-      mModel = applyAction (mModel);
-    });
-
-    update ();
-  }
-
-private:
-  std::decay_t<Model> mModel;
-  std::function<void(Model const&)> mView;
-  EventLoop mEventLoop;
-};
-
-template <class Model, class View>
-Store(Model&& initial, View&& view)->Store<Model>;
 
 using BinaryOperation = std::function<double(double, double)>;
 
@@ -56,11 +15,7 @@ using Token = std::variant<Operand, BinaryOperation>;
 
 struct model
 {
-  model()
-  {
-    tokens.push(Operand{0});
-  }
-  std::stack<Token> tokens;
+  double value;
 };
 
 auto draw ()
