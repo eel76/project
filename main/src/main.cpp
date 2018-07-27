@@ -1,90 +1,94 @@
+#include "reducer.h"
 #include "store.h"
-#include <iostream>
-#include <queue>
-#include <stack>
-#include <variant>
 
-using BinaryOperation = std::function<double(double, double)>;
+#include <tuple>
+#include <vector>
 
-struct Operand
+enum class VisibilityFilter
 {
-  double asDouble;
+  SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE
 };
 
-using Token = std::variant<Operand, BinaryOperation>;
-
-struct model
+struct Todo
 {
-  double value;
+  std::string text;
+  bool completed;
 };
 
-auto draw ()
+using Todos = std::vector<Todo>;
+using Model = std::tuple <VisibilityFilter, Todos>;
+
+struct AddTodo
 {
-  return [] (auto const& model)
-    {
-      std::cout << "current value: " << model.value << '\n';
-    };
+  std::string text;
+
+  Todos operator() (Todos todos) const
+  {
+    todos.push_back(Todo{ text, false });
+    return todos;
+  }
+};
+
+auto addTodo(std::string text)
+{
+  return AddTodo{text};
 }
 
-struct digit_action
+struct ToggleTodo
 {
-  int digit { 0 };
+  int index;
 
-  model operator() (model m) const
+  Todos operator() (Todos todos) const
   {
-    return { m.value * 10 + digit };
+    todos[index].completed = !todos[index].completed;
+    return todos;
   }
 };
 
-struct plus_action
+auto toggleTodo(int index)
 {
-  model operator() (model m) const
-  {
-    return m;
-  }
-};
-
-struct minus_action
-{
-  model operator() (model m) const
-  {
-    return m;
-  }
-};
-
-template <class Store>
-void dispatch (Store& store, char event)
-{
-  switch (event)
-  {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-      store.dispatch (digit_action { event - '0' });
-      break;
-    case '+':
-      store.dispatch (plus_action {});
-      break;
-    case '-':
-      store.dispatch (minus_action {});
-      break;
-    default:
-      break;
-    }  
+  return ToggleTodo{ index };
 }
+
+struct SetVisibilityFilter
+{
+  VisibilityFilter visibilityFilter;
+
+  VisibilityFilter operator() (VisibilityFilter) const
+  {
+    return visibilityFilter;
+  }
+};
+
+auto setVisibilityFilter(VisibilityFilter visibilityFilter)
+{
+  return SetVisibilityFilter{ visibilityFilter };
+}
+
+auto draw()
+{
+  return [](auto) {};
+}
+
 
 int main ()
 {
-  auto store = Store{ model{}, draw () };
-  auto event = char{};
+  auto const visibilityFilter = makeReducer<SetVisibilityFilter>();
+  auto const todos = makeReducer<AddTodo, ToggleTodo>();
 
-  while (std::cin >> event)
-    dispatch (store, event);
+  auto const todoApp = combineReducers(visibilityFilter, todos);
+
+  auto store = Store{ Model{}, todoApp, draw () };
+
+  store.dispatch(addTodo("Learn about actions"));
+  store.dispatch(addTodo("Learn about reducers"));
+  store.dispatch(addTodo("Learn about store"));
+  store.dispatch(toggleTodo(0));
+  store.dispatch(toggleTodo(1));
+  store.dispatch(setVisibilityFilter(VisibilityFilter::SHOW_COMPLETED));
+
+  //auto event = char{};
+
+  //while (std::cin >> event)
+  //  dispatch (store, event);
 }

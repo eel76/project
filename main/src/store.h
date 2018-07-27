@@ -2,13 +2,14 @@
 #include "eventloop.h"
 #include <functional>
 
-template <class Model>
+template <class Model, class Reducer>
 class Store
 {
 public:
-  template <class Model, class View>
-  Store (Model&& initial, View&& view)
+  template <class Model, class Reducer, class View>
+  Store (Model&& initial, Reducer&& reducer, View&& view)
     : mModel (std::forward<Model> (initial))
+    , mReducer (std::forward<Reducer>(reducer))
     , mView (std::forward<View> (view))
     , mEventLoop ()
   {
@@ -26,7 +27,7 @@ public:
   {
     mEventLoop.post ([=, applyAction{std::forward<Action> (action)}]
     {
-      mModel = applyAction (mModel);
+      mModel = mReducer(std::move(mModel), applyAction);
     });
 
     update ();
@@ -34,9 +35,10 @@ public:
 
 private:
   std::decay_t<Model> mModel;
+  std::decay_t<Reducer> mReducer;
   std::function<void(Model const&)> mView;
   EventLoop mEventLoop;
 };
 
-template <class Model, class View>
-Store(Model&& initial, View&& view)->Store<Model>;
+template <class Model, class Reducer, class View>
+Store(Model&& initial, Reducer&& reducer, View&& view)->Store<Model, Reducer>;

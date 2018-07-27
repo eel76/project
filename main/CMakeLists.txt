@@ -4,7 +4,7 @@ project (main LANGUAGES CXX)
 
 add_executable (main)
 
-target_sources (main PRIVATE src/main.cpp src/eventloop.h src/store.h)
+target_sources (main PRIVATE src/main.cpp src/eventloop.h src/reducer.h src/store.h)
 
 target_include_directories(main
     PRIVATE
