@@ -2,10 +2,9 @@
 
 class EventLoop
 {
-public:
+  public:
   template <class Event>
-  void post (Event&& event)
-  {
-    event ();
+  void post(Event&& event) {
+    event();
   }
 };
