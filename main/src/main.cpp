@@ -61,12 +61,12 @@ auto draw() {
 }
 
 int main() {
-  auto const visibilityFilter = makeReducer<SetVisibilityFilter>();
-  auto const todos            = makeReducer<AddTodo, ToggleTodo>();
+  auto const visibilityFilter = redux::makeReducer<SetVisibilityFilter>();
+  auto const todos            = redux::makeReducer<AddTodo, ToggleTodo>();
 
   auto const todoApp = combineReducers(visibilityFilter, todos);
 
-  auto store = Store{ Model{}, todoApp, draw() };
+  auto store = redux::Store{ Model{}, todoApp, draw() };
 
   store.dispatch(addTodo("Learn about actions"));
   store.dispatch(addTodo("Learn about reducers"));
