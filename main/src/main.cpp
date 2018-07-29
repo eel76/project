@@ -1,5 +1,4 @@
-#include "reducer.h"
-#include "store.h"
+#include "redux.h"
 
 #include <iostream>
 #include <tuple>
