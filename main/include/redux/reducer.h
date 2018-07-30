@@ -1,16 +1,8 @@
 #pragma once
-#include <functional>
-#include <tuple>
+#include "detail/get.h"
+#include "detail/overloaded.h"
 
 namespace redux {
-  inline namespace detail {
-    template <class... Ts>
-    struct Overloaded : Ts...
-    { using Ts::operator()...; };
-    template <class... Ts>
-    Overloaded(Ts...)->Overloaded<Ts...>;
-  }
-
   template <class... Actions>
   auto makeReducer() {
     return Overloaded{ ([=](auto state, Actions action) { return action(state); })...,
@@ -21,7 +13,8 @@ namespace redux {
   auto combineReducersImpl(std::index_sequence<Indexes...>, ReducerTuple&& reducerTuple) {
     return [reducers{ std::forward<ReducerTuple>(
            reducerTuple) }](auto state, auto&& action) -> decltype(state) {
-      return { (std::invoke(std::get<Indexes>(reducers), std::get<Indexes>(state), action))... };
+      return { (std::invoke(std::get<Indexes>(reducers),
+                            redux::get<Indexes, sizeof...(Indexes)>(state), action))... };
     };
   }
 

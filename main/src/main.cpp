@@ -15,6 +15,12 @@ struct Todo
 using Todos = std::vector<Todo>;
 using Model = std::tuple<VisibilityFilter, Todos>;
 
+// struct Model
+//{
+//  VisibilityFilter visibilityFilter;
+//  Todos            todos;
+//};
+
 struct AddTodo
 {
   std::string text;
