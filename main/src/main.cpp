@@ -14,9 +14,9 @@ struct Todo
 
 using Todos = std::vector<Todo>;
 
-// using Model = std::tuple<VisibilityFilter, Todos>;
+// using State = std::tuple<VisibilityFilter, Todos>;
 
-struct Model
+struct State
 {
   VisibilityFilter visibilityFilter;
   Todos            todos;
@@ -63,8 +63,12 @@ auto setVisibilityFilter(VisibilityFilter visibilityFilter) {
   return SetVisibilityFilter{ visibilityFilter };
 }
 
+void debug_helper() {
+  std::cout << "draw\n";
+}
+
 auto draw() {
-  return [](auto) { std::cout << "draw\n"; };
+  return [](auto) { debug_helper(); };
 }
 
 int main() {
@@ -73,7 +77,7 @@ int main() {
 
   auto const todoApp = combineReducers(visibilityFilter, todos);
 
-  auto store = redux::Store{ Model{}, todoApp, draw() };
+  auto store = redux::Store{ State{}, todoApp, draw() };
 
   store.dispatch(addTodo("Learn about actions"));
   store.dispatch(addTodo("Learn about reducers"));
