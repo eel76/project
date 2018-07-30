@@ -3,11 +3,25 @@
 #include "detail/overloaded.h"
 
 namespace redux {
+  template <class Action>
+  struct Invoke
+  {
+    template <class State>
+    auto operator()(State state, Action action) const {
+      return action(state);
+    }
+  };
+
+  struct Ignored
+  {
+    template <class State, class Action>
+    auto operator()(State state, Action&&) const {
+      return state;
+    }
+  };
+
   template <class... Actions>
-  auto makeReducer() {
-    return Overloaded{ ([=](auto state, Actions action) { return action(state); })...,
-                       [=](auto state, auto&&) { return state; } };
-  }
+  using Reducer = Overloaded<Invoke<Actions>..., Ignored>;
 
   template <size_t... Indexes, class ReducerTuple>
   auto combineReducersImpl(std::index_sequence<Indexes...>, ReducerTuple&& reducerTuple) {

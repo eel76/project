@@ -13,13 +13,14 @@ struct Todo
 };
 
 using Todos = std::vector<Todo>;
-using Model = std::tuple<VisibilityFilter, Todos>;
 
-// struct Model
-//{
-//  VisibilityFilter visibilityFilter;
-//  Todos            todos;
-//};
+// using Model = std::tuple<VisibilityFilter, Todos>;
+
+struct Model
+{
+  VisibilityFilter visibilityFilter;
+  Todos            todos;
+};
 
 struct AddTodo
 {
@@ -67,8 +68,8 @@ auto draw() {
 }
 
 int main() {
-  auto const visibilityFilter = redux::makeReducer<SetVisibilityFilter>();
-  auto const todos            = redux::makeReducer<AddTodo, ToggleTodo>();
+  auto const visibilityFilter = redux::Reducer<SetVisibilityFilter>();
+  auto const todos            = redux::Reducer<AddTodo, ToggleTodo>();
 
   auto const todoApp = combineReducers(visibilityFilter, todos);
 
