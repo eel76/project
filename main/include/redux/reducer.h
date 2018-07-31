@@ -1,6 +1,7 @@
 #pragma once
 #include "detail/get.h"
 #include "detail/overloaded.h"
+#include <functional>
 
 namespace redux {
   template <class Action>

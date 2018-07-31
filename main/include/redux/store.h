@@ -3,33 +3,34 @@
 #include <functional>
 
 namespace redux {
-  template <class Model, class Reducer>
+  template <class State, class Reducer>
   class Store
   {
     public:
-    template <class Model, class Reducer, class View>
-    Store(Model&& initial, Reducer&& reducer, View&& view)
-    : mModel(std::forward<Model>(initial)), mReducer(std::forward<Reducer>(reducer)),
+    template <class StateParam, class ReducerParam, class View>
+    Store(StateParam&& initial, ReducerParam&& reducer, View&& view)
+    : mState(std::forward<StateParam>(initial)),
+      mReducer(std::forward<ReducerParam>(reducer)),
       mView(std::forward<View>(view)), mEventLoop() {
     }
 
     void update() {
-      mEventLoop.post([=] { mView(mModel); });
+      mEventLoop.post([=] { mView(mState); });
     }
 
     template <class Action>
     void dispatch(Action&& action) {
       mEventLoop.post([=, applyAction{ std::forward<Action>(action) }] {
-        mModel = mReducer(std::move(mModel), applyAction);
+        mState = mReducer(std::move(mState), applyAction);
       });
 
       update();
     }
 
     private:
-    std::decay_t<Model>               mModel;
+    std::decay_t<State>               mState;
     std::decay_t<Reducer>             mReducer;
-    std::function<void(Model const&)> mView;
+    std::function<void(State const&)> mView;
     EventLoop                         mEventLoop;
   };
 
