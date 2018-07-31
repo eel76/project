@@ -32,10 +32,6 @@ struct AddTodo
   }
 };
 
-auto addTodo(std::string text) {
-  return AddTodo{ text };
-}
-
 struct ToggleTodo
 {
   int index;
@@ -46,10 +42,6 @@ struct ToggleTodo
   }
 };
 
-auto toggleTodo(int index) {
-  return ToggleTodo{ index };
-}
-
 struct SetVisibilityFilter
 {
   VisibilityFilter visibilityFilter;
@@ -58,10 +50,6 @@ struct SetVisibilityFilter
     return visibilityFilter;
   }
 };
-
-auto setVisibilityFilter(VisibilityFilter visibilityFilter) {
-  return SetVisibilityFilter{ visibilityFilter };
-}
 
 void debug_helper() {
   std::cout << "draw\n";
@@ -79,12 +67,12 @@ int main() {
 
   auto store = redux::Store{ State{}, todoApp, draw() };
 
-  store.dispatch(addTodo("Learn about actions"));
-  store.dispatch(addTodo("Learn about reducers"));
-  store.dispatch(addTodo("Learn about store"));
-  store.dispatch(toggleTodo(0));
-  store.dispatch(toggleTodo(1));
-  store.dispatch(setVisibilityFilter(VisibilityFilter::SHOW_COMPLETED));
+  store.dispatch(AddTodo{ "Learn about actions" });
+  store.dispatch(AddTodo{ "Learn about reducers" });
+  store.dispatch(AddTodo{ "Learn about store" });
+  store.dispatch(ToggleTodo{ 0 });
+  store.dispatch(ToggleTodo{ 1 });
+  store.dispatch(SetVisibilityFilter{ VisibilityFilter::SHOW_COMPLETED });
 
   // auto event = char{};
 

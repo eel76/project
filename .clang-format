@@ -27,7 +27,8 @@ BraceWrapping:
 BreakBeforeBinaryOperators: false
 BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: false
-BreakConstructorInitializersBeforeComma: false
+BreakConstructorInitializersBeforeComma: true
+BreakConstructorInitializers: BeforeColon
 ColumnLimit: 80
 CommentPragmas: ''
 CompactNamespaces: true

@@ -9,9 +9,10 @@ namespace redux {
     public:
     template <class StateParam, class ReducerParam, class View>
     Store(StateParam&& initial, ReducerParam&& reducer, View&& view)
-    : mState(std::forward<StateParam>(initial)),
-      mReducer(std::forward<ReducerParam>(reducer)),
-      mView(std::forward<View>(view)), mEventLoop() {
+    : mState(std::forward<StateParam>(initial))
+    , mReducer(std::forward<ReducerParam>(reducer))
+    , mView(std::forward<View>(view))
+    , mEventLoop() {
     }
 
     void update() {
